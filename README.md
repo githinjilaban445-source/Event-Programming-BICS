@@ -127,8 +127,7 @@ java -cp Week1_Activity EventDrivenCalculator
 
 ---
 
-## Author & License
+## Author
 
-- **Author:** Don Gitonga Kiriinya (`dkiriinya06sc@gmail.com`)
-- **License:** [ISC License](LICENSE.md) — Copyright (c) 2026 Don Gitonga Kiriinya
+- **Author:** Laban Githinji (`githinjilaban445@gmail.com`)
 
