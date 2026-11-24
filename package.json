@@ -1,0 +1,26 @@
+{
+  "name": "event-driven-programming-java",
+  "version": "1.0.0",
+  "description": "Comprehensive practical activities, guides, and implementations for Event-Driven Programming in Java.",
+  "scripts": {
+    "build": "java -cp scripts AgentCLI build",
+    "build:clean": "java -cp scripts AgentCLI build --clean",
+    "test": "java -cp scripts AgentCLI verify",
+    "info": "java -cp scripts AgentCLI info",
+    "start:university": "mvn -f UniversitySystem/pom.xml javafx:run",
+    "test:university": "java -cp \"UniversitySystem/target/classes;UniversitySystem/lib/postgresql-42.7.3.jar\" com.university.UniversitySystemTest",
+    "seed:university": "java -cp \"UniversitySystem/target/classes;UniversitySystem/lib/postgresql-42.7.3.jar\" com.university.SeedStudents"
+  },
+  "keywords": [
+    "java",
+    "event-driven-programming",
+    "observer-pattern",
+    "swing-gui"
+  ],
+  "author": "Don Gitonga Kiriinya",
+  "license": "ISC",
+  "dependencies": {
+    "@neon/config": "^1.13.0",
+    "@neon/env": "^2.1.0"
+  }
+}

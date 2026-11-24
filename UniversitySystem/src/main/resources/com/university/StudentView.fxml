@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.university.StudentController">
+
+    <padding><Insets top="15" right="15" bottom="15" left="15"/></padding>
+
+    <!-- Header Section -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <Label text="Student Directory" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="searchField" promptText="🔍 Search name, reg, or email..." prefWidth="250"/>
+        <Button fx:id="refreshButton" text="⟳ Refresh" minWidth="-Infinity" onAction="#handleRefresh"
+                style="-fx-background-color: #ecf0f1; -fx-cursor: hand; -fx-font-weight: bold; -fx-padding: 6 14; -fx-background-radius: 6;"/>
+    </HBox>
+
+    <!-- CRUD Input Form -->
+    <VBox spacing="10" style="-fx-background-color: #f8f9fa; -fx-border-color: #e2e8f0; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 14;">
+        <!-- Input Fields Row (Flexible & Responsive) -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="regField" promptText="Reg Number (e.g. BCS-0150/2026)" minWidth="130" prefWidth="180" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="firstNameField" promptText="First Name" minWidth="110" prefWidth="140" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="lastNameField" promptText="Last Name" minWidth="110" prefWidth="140" HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="emailField" promptText="Institutional Email (optional)" minWidth="160" prefWidth="240" HBox.hgrow="ALWAYS"/>
+        </HBox>
+
+        <!-- Action Buttons Row (minWidth="-Infinity" prevents any ellipsis truncating) -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Button fx:id="addButton" text="➕ Add Student" minWidth="-Infinity" onAction="#handleAddStudent"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+            <Button fx:id="updateButton" text="✏️ Update" minWidth="-Infinity" onAction="#handleUpdateStudent"
+                    style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+            <Button fx:id="deleteButton" text="🗑️ Delete" minWidth="-Infinity" onAction="#handleDeleteStudent"
+                    style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 6; -fx-cursor: hand;"/>
+            <Button fx:id="clearButton" text="✖ Clear Form" minWidth="-Infinity" onAction="#handleClearForm"
+                    style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-padding: 8 14; -fx-background-radius: 6; -fx-cursor: hand;"/>
+
+            <HBox HBox.hgrow="ALWAYS"/>
+
+            <Label text="💡 Click row to Edit/Delete · Hold Ctrl/Shift for Bulk Delete"
+                   style="-fx-text-fill: #7f8c8d; -fx-font-style: italic; -fx-font-size: 11px;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Table Container with Shaded Loading Overlay (Shader / Scrim) -->
+    <StackPane VBox.vgrow="ALWAYS">
+        <!-- Responsive TableView -->
+        <TableView fx:id="studentTable">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                <TableColumn fx:id="colReg" text="Reg Number" prefWidth="140"/>
+                <TableColumn fx:id="colFirst" text="First Name" prefWidth="120"/>
+                <TableColumn fx:id="colLast" text="Last Name" prefWidth="120"/>
+                <TableColumn fx:id="colEmail" text="Institutional Email" prefWidth="240"/>
+                <TableColumn fx:id="colProgram" text="Academic Program" prefWidth="180"/>
+            </columns>
+        </TableView>
+
+        <!-- Shaded Loading Overlay (HUD Card with Spinner and Frosted Scrim) -->
+        <VBox fx:id="loadingOverlay" alignment="CENTER" spacing="12"
+              style="-fx-background-color: rgba(248, 249, 250, 0.82); -fx-background-radius: 6;">
+            <VBox alignment="CENTER" spacing="10" maxWidth="380"
+                  style="-fx-background-color: white; -fx-padding: 24; -fx-background-radius: 12; -fx-border-color: #e2e8f0; -fx-border-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 18, 0, 0, 4);">
+                <ProgressIndicator fx:id="loadingSpinner" prefWidth="52" prefHeight="52"/>
+                <Label fx:id="loadingTitle" text="Connecting to Neon Cloud..."
+                       style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+                <Label fx:id="loadingSubtitle" text="Fetching encrypted student records via SSL..."
+                       style="-fx-font-size: 12px; -fx-text-fill: #7f8c8d; -fx-text-alignment: center;"/>
+            </VBox>
+        </VBox>
+    </StackPane>
+
+    <!-- Status Bar -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label fx:id="statusLabel" text="Connecting to Neon PostgreSQL..." style="-fx-text-fill: #2980b9; -fx-font-weight: bold;"/>
+        <HBox HBox.hgrow="ALWAYS"/>
+        <Label fx:id="countLabel" text="0 students" style="-fx-text-fill: #7f8c8d;"/>
+    </HBox>
+</VBox>
